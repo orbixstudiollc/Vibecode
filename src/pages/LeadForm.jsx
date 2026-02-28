@@ -1,32 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { addLead, updateLead, getLeadById, scoreLead, LEAD_STAGES, LEAD_SOURCES, formatStage } from '../utils/leadStore';
+
+const defaultForm = {
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  stage: 'new',
+  source: 'website',
+  budget: '',
+  tags: '',
+  notes: '',
+  linkedin: '',
+  website: '',
+  role: '',
+};
 
 export default function LeadForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id) && id !== 'new';
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    stage: 'new',
-    source: 'website',
-    budget: '',
-    tags: '',
-    notes: '',
-    linkedin: '',
-    website: '',
-    role: '',
-  });
-
-  useEffect(() => {
+  const [form, setForm] = useState(() => {
     if (isEdit) {
       const lead = getLeadById(id);
       if (lead) {
-        setForm({
+        return {
           name: lead.name || '',
           email: lead.email || '',
           phone: lead.phone || '',
@@ -39,10 +39,11 @@ export default function LeadForm() {
           linkedin: lead.linkedin || '',
           website: lead.website || '',
           role: lead.role || '',
-        });
+        };
       }
     }
-  }, [id, isEdit]);
+    return defaultForm;
+  });
 
   function handleChange(e) {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));

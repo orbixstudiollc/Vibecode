@@ -1,24 +1,12 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getLeadStats, getLeads, getActivities, seedDemoLeads, formatStage, downloadCSV } from '../utils/leadStore';
 
+seedDemoLeads();
+
 export default function LeadDashboard() {
-  const [stats, setStats] = useState(null);
-  const [recentLeads, setRecentLeads] = useState([]);
-  const [activities, setActivities] = useState([]);
-
-  function refresh() {
-    setStats(getLeadStats());
-    setRecentLeads(getLeads().slice(0, 5));
-    setActivities(getActivities().slice(0, 10));
-  }
-
-  useEffect(() => {
-    seedDemoLeads();
-    refresh();
-  }, []);
-
-  if (!stats) return null;
+  const stats = getLeadStats();
+  const recentLeads = getLeads().slice(0, 5);
+  const activities = getActivities().slice(0, 10);
 
   const stageColors = {
     new: '#D4FF00',

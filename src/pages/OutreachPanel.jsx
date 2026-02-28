@@ -1,19 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getCampaigns, addCampaign, updateCampaign, deleteCampaign, getLeads, addActivity } from '../utils/leadStore';
 import { templates, fillTemplate } from '../utils/emailTemplates';
 
 export default function OutreachPanel() {
-  const [campaigns, setCampaigns] = useState([]);
-  const [leads, setLeads] = useState([]);
+  const [campaigns, setCampaigns] = useState(() => getCampaigns());
+  const [leads] = useState(() => getLeads());
   const [showNew, setShowNew] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [previewLead, setPreviewLead] = useState(null);
   const [form, setForm] = useState({ name: '', templateId: '', leadIds: [] });
-
-  useEffect(() => {
-    setCampaigns(getCampaigns());
-    setLeads(getLeads());
-  }, []);
 
   function refresh() {
     setCampaigns(getCampaigns());

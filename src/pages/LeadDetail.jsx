@@ -16,6 +16,7 @@ export default function LeadDetail() {
     if (!data) {
       navigate('/leads');
     } else {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLead(data);
     }
   }, [id, navigate]);

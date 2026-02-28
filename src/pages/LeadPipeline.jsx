@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getLeads, moveLead, formatStage, LEAD_STAGES } from '../utils/leadStore';
 
@@ -13,13 +13,9 @@ const stageColors = {
 };
 
 export default function LeadPipeline() {
-  const [leads, setLeads] = useState([]);
+  const [leads, setLeads] = useState(() => getLeads());
   const [draggedId, setDraggedId] = useState(null);
   const [dragOverStage, setDragOverStage] = useState(null);
-
-  useEffect(() => {
-    setLeads(getLeads());
-  }, []);
 
   function refresh() {
     setLeads(getLeads());

@@ -1,19 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getLeads, deleteLead, formatStage, LEAD_STAGES, LEAD_SOURCES, downloadCSV } from '../utils/leadStore';
 
 export default function LeadList() {
-  const [leads, setLeads] = useState([]);
+  const [leads, setLeads] = useState(() => getLeads());
   const [search, setSearch] = useState('');
   const [stageFilter, setStageFilter] = useState('all');
   const [sourceFilter, setSourceFilter] = useState('all');
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortDir, setSortDir] = useState('desc');
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setLeads(getLeads());
-  }, []);
 
   function refresh() {
     setLeads(getLeads());

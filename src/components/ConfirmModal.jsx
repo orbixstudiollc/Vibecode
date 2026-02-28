@@ -6,6 +6,7 @@ export default function ConfirmModal({ isOpen, onClose, sendAmount, receiveAmoun
 
   useEffect(() => {
     if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCountdown(29);
       timerRef.current = setInterval(() => {
         setCountdown((prev) => {
