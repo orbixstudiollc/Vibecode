@@ -5,7 +5,7 @@ export default function Navbar() {
   const path = location.pathname;
 
   return (
-    <nav>
+    <nav className={path === '/' ? 'nav-home' : ''}>
       <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>OFFRAMP_PROTOCOL</Link>
       <div className="nav-links">
         <Link to="/dashboard" className={`nav-item ${path === '/dashboard' ? 'nav-active' : ''}`}>Dashboard</Link>

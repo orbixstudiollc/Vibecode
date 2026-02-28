@@ -6,7 +6,7 @@ import { templates, fillTemplate } from '../utils/emailTemplates';
 export default function LeadDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [lead, setLead] = useState(null);
+  const [lead, setLead] = useState(() => getLeadById(id));
   const [activeTemplate, setActiveTemplate] = useState(null);
   const [showTemplates, setShowTemplates] = useState(false);
   const [note, setNote] = useState('');
@@ -15,9 +15,9 @@ export default function LeadDetail() {
     const data = getLeadById(id);
     if (!data) {
       navigate('/leads');
-      return;
+    } else {
+      setLead(data);
     }
-    setLead(data);
   }, [id, navigate]);
 
   function refresh() {

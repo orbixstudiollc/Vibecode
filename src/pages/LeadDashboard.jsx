@@ -7,16 +7,16 @@ export default function LeadDashboard() {
   const [recentLeads, setRecentLeads] = useState([]);
   const [activities, setActivities] = useState([]);
 
-  useEffect(() => {
-    seedDemoLeads();
-    refresh();
-  }, []);
-
   function refresh() {
     setStats(getLeadStats());
     setRecentLeads(getLeads().slice(0, 5));
     setActivities(getActivities().slice(0, 10));
   }
+
+  useEffect(() => {
+    seedDemoLeads();
+    refresh();
+  }, []);
 
   if (!stats) return null;
 
