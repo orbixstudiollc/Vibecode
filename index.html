@@ -12,6 +12,14 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.onerror = function(msg, url, line, col, err) {
+        document.getElementById('root').innerHTML = '<div style="padding:40px;color:#ff4444;font-family:monospace;background:#111;min-height:100vh"><h1>JS Error</h1><pre>' + msg + '\n' + url + ':' + line + '</pre></div>';
+      };
+      window.addEventListener('unhandledrejection', function(e) {
+        document.getElementById('root').innerHTML = '<div style="padding:40px;color:#ff4444;font-family:monospace;background:#111;min-height:100vh"><h1>Promise Error</h1><pre>' + e.reason + '</pre></div>';
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
